@@ -3,6 +3,7 @@ export { SearchBar } from './ui/SearchBar';
 export { ArticleList } from './ui/ArticleList';
 export { PasteSection } from './ui/PasteSection';
 export { ArticleCard } from './ui/ArticleCard';
+export { CopyButton } from './ui/CopyButton';
 
 //api
 export { useNewsSearch } from './api/useNewsSearch';

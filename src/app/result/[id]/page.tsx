@@ -1,4 +1,4 @@
-import { ArticleCard } from '@/features/article-analyze';
+import { ArticleCard, CopyButton } from '@/features/article-analyze';
 import { createClient } from '@/shared/lib/supabase/server';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -106,7 +106,7 @@ export default async function ResultPage({ params }: ResultPageProps) {
             ← 검색으로
           </Link>
           <div className="text-xl font-medium tracking-tight">본론</div>
-          <div className="w-14" />
+          <CopyButton />
         </div>
 
         {/* 면책 문구 */}
