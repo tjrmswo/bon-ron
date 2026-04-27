@@ -34,9 +34,9 @@ export function ArticleAnalyzeSection() {
     isPending: isAnalyzePending,
   } = useAnalyzeModel(mode, query);
 
-  useEffect(() => {
-    console.log('selected articles:', selectedNews);
-  }, [selectedNews]);
+  // useEffect(() => {
+  //   console.log('selected articles:', selectedNews);
+  // }, [selectedNews]);
 
   return (
     <form onSubmit={(e) => handleSearch(e, query)} className="mb-6">

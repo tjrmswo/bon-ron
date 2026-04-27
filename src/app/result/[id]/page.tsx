@@ -62,7 +62,7 @@ export default async function ResultPage({ params }: ResultPageProps) {
     articles[1]?.analysis.keywords.includes(k),
   );
 
-  console.log(articles);
+  // console.log(articles);
 
   const rows = [
     {
