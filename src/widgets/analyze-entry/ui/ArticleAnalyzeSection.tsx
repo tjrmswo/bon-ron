@@ -4,6 +4,7 @@ import { useState } from 'react';
 import {
   ArticleList,
   PasteSection,
+  RecentAnalysesList,
   SearchBar,
   useAnalyzeModel,
   useArticleSelectState,
@@ -71,6 +72,8 @@ export function ArticleAnalyzeSection() {
         onReset={handleReset}
         handleAnalyze={() => handleAnalyze(pasteText)}
       />
+
+      <RecentAnalysesList />
     </form>
   );
 }

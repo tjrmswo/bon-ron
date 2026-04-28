@@ -4,6 +4,7 @@ export { ArticleList } from './ui/ArticleList';
 export { PasteSection } from './ui/PasteSection';
 export { ArticleCard } from './ui/ArticleCard';
 export { CopyButton } from './ui/CopyButton';
+export { RecentAnalysesList } from './ui/RecentAnalysesList';
 
 //api
 export { useNewsSearch } from './api/useNewsSearch';
