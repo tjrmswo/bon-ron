@@ -127,26 +127,8 @@
   html {
     @apply font-sans;
   }
-}
 
-@keyframes drawLine {
-  0%, 100% { width: 0px }
-  45%, 55% { width: 200px }
-}
-@keyframes pencilRot {
-  0%, 45% {
-    bottom: -6px;
-    left: calc(100% + 14px);
-    transform: rotate(25deg);
-  }
-  55%, 100% {
-    bottom: -12px;
-    left: calc(100% + 16px);
-    transform: rotate(220deg);
-  }
-}
-
-.loader {
+  .loader {
   border-bottom: 3px solid #10b981;
   animation: drawLine 4s linear infinite;
 }
@@ -169,3 +151,22 @@
   transform: rotate(25deg);
   animation: pencilRot 4s linear infinite;
 }
+}
+
+@keyframes drawLine {
+  0%, 100% { width: 0px }
+  45%, 55% { width: 200px }
+}
+@keyframes pencilRot {
+  0%, 45% {
+    bottom: -6px;
+    left: calc(100% + 14px);
+    transform: rotate(25deg);
+  }
+  55%, 100% {
+    bottom: -12px;
+    left: calc(100% + 16px);
+    transform: rotate(220deg);
+  }
+}
+

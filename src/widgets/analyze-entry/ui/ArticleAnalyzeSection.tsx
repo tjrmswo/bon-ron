@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   ArticleList,
   PasteSection,
@@ -34,14 +34,13 @@ export function ArticleAnalyzeSection() {
     isPending: isAnalyzePending,
   } = useAnalyzeModel(mode, query);
 
-  useEffect(() => {
-    console.log('selected articles:', selectedNews);
-  }, [selectedNews]);
+  // useEffect(() => {
+  //   console.log('selected articles:', selectedNews);
+  // }, [selectedNews]);
 
   return (
     <form onSubmit={(e) => handleSearch(e, query)} className="mb-6">
       <SearchBar value={query} onChange={(e) => setQuery(e.target.value)} />
-
       {/* A/B 토글 — 검색 결과 있을 때만 표시 */}
       {isSuccess && !isLoading && (
         <div className="flex justify-end mb-2">
@@ -54,9 +53,7 @@ export function ArticleAnalyzeSection() {
           </button>
         </div>
       )}
-
       {isLoading && <Loader />}
-
       {!isLoading && isSuccess && (
         <ArticleList
           articles={searchData}
@@ -67,7 +64,6 @@ export function ArticleAnalyzeSection() {
           isPending={isAnalyzePending}
         />
       )}
-
       <PasteSection
         value={pasteText}
         onChange={handlePasteTextChange}

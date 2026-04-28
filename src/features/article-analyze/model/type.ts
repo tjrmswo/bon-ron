@@ -63,3 +63,24 @@ export type ClusterResult = {
 }
 
 export type SearchMode = 'flat' | 'cluster';
+
+interface Analysis {
+  who: string | null;
+  what: string | null;
+  why: string | null;
+  when_where: string | null;
+  keywords: string[];
+  tone: '단정 서술' | '주장 인용' | '해석·전망';
+  tone_reason: string | null;
+}
+
+export interface Article {
+  source: string;
+  title: string;
+  url: string;
+  analysis: Analysis;
+}
+
+export interface ResultPageProps {
+  params: Promise<{ id: string }>;
+}
