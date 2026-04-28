@@ -118,9 +118,11 @@ export default async function ResultPage({ params }: ResultPageProps) {
           >
             ← 검색으로
           </Link>
-          <div className="text-xl font-medium tracking-tight relative translate-x-6">본론</div>
+          <div className="text-xl font-medium tracking-tight relative translate-x-6">
+            본론
+          </div>
 
-          <div className='flex flex-row gap-2'>
+          <div className="flex flex-row gap-2">
             <CopyButton />
             <KakaoShareButton
               title={`${keyword} — ${sources}`}
@@ -254,7 +256,7 @@ export default async function ResultPage({ params }: ResultPageProps) {
               </div>
 
               {/* 헤더 */}
-              <div className="grid grid-cols-[88px_1fr_1fr] bg-gray-50 border-b border-gray-100">
+              <div className="grid grid-cols-[1fr_2fr_2fr] bg-gray-50 border-b border-gray-100">
                 <div className="px-4 py-3 border-r border-gray-100" />
                 {articles.map((a, i) => {
                   const tone =
@@ -279,7 +281,7 @@ export default async function ResultPage({ params }: ResultPageProps) {
               {rows.map((row, ri) => (
                 <div
                   key={row.key}
-                  className={`grid grid-cols-[88px_1fr_1fr] ${ri < rows.length - 1 ? 'border-b border-gray-100' : ''}`}
+                  className={`grid grid-cols-[1fr_2fr_2fr] ${ri < rows.length - 1 ? 'border-b border-gray-100' : ''}`}
                 >
                   <div className="px-4 py-4 bg-gray-50 border-r border-gray-100 flex flex-col justify-start gap-1.5">
                     <div className="text-xs font-medium text-gray-400 uppercase tracking-widest">
