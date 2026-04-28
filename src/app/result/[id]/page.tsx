@@ -10,6 +10,7 @@ import { createClient } from '@/shared/lib/supabase/server';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
+import { KakaoShareButton } from '@/shared';
 
 export async function generateMetadata({
   params,
@@ -104,6 +105,8 @@ export default async function ResultPage({ params }: ResultPageProps) {
       articles[0].analysis[row.field] !== articles[1]?.analysis[row.field],
   }));
 
+  const sources = articles.map((a) => a.source).join(' vs ');
+
   return (
     <div className="min-h-screen bg-[#f5f4f0] px-4 py-6 font-sans">
       <div className="max-w-2xl mx-auto flex flex-col gap-5">
@@ -115,8 +118,16 @@ export default async function ResultPage({ params }: ResultPageProps) {
           >
             ← 검색으로
           </Link>
-          <div className="text-xl font-medium tracking-tight">본론</div>
-          <CopyButton />
+          <div className="text-xl font-medium tracking-tight relative translate-x-6">본론</div>
+
+          <div className='flex flex-row gap-2'>
+            <CopyButton />
+            <KakaoShareButton
+              title={`${keyword} — ${sources}`}
+              description="같은 사건, 다른 시각 | 본론"
+              url={`https://bon-ron.vercel.app/result/${id}`}
+            />
+          </div>
         </div>
 
         {/* 면책 문구 */}
