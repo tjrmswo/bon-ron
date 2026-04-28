@@ -3,6 +3,7 @@ export { SearchBar } from './ui/SearchBar';
 export { ArticleList } from './ui/ArticleList';
 export { PasteSection } from './ui/PasteSection';
 export { ArticleCard } from './ui/ArticleCard';
+export { CopyButton } from './ui/CopyButton';
 
 //api
 export { useNewsSearch } from './api/useNewsSearch';
@@ -14,8 +15,11 @@ export { useArticleSelectState } from './model/useArticleSelectState';
 export { useSearchModel } from './model/useSearchModel';
 export { useAnalyzeModel } from './model/useAnalyzeModel';
 export { useSelectedNewsStore} from "./model/useSelectedNewsStore"
+export type { Article, ResultPageProps } from './model/type';
 
 //lib
 export { getSourceName } from './lib/newspaperFormat';
 export { stripHtml } from './lib/striphtml';
 export { dateFormat } from './lib/dateFormat';
+export { TONE_STYLE } from '../article-analyze/lib/constants';
+export { ANALYSIS_ROW_KEYS } from '../article-analyze/lib/constants';

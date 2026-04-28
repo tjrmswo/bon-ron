@@ -1,46 +1,50 @@
-import { ArticleCard } from '@/features/article-analyze';
+import {
+  ANALYSIS_ROW_KEYS,
+  Article,
+  ArticleCard,
+  CopyButton,
+  ResultPageProps,
+  TONE_STYLE,
+} from '@/features/article-analyze';
 import { createClient } from '@/shared/lib/supabase/server';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
+import { KakaoShareButton } from '@/shared';
 
-interface Analysis {
-  who: string | null;
-  what: string | null;
-  why: string | null;
-  when_where: string | null;
-  keywords: string[];
-  tone: '단정 서술' | '주장 인용' | '해석·전망';
-  tone_reason: string | null;
-}
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const supabase = await createClient();
 
-interface Article {
-  source: string;
-  title: string;
-  url: string;
-  analysis: Analysis;
-}
+  const { data } = await supabase
+    .from('analyses')
+    .select('keyword, articles')
+    .eq('id', id)
+    .single();
 
-const TONE_STYLE: Record<string, { bg: string; text: string; border: string }> =
-  {
-    '단정 서술': {
-      bg: 'bg-blue-50',
-      text: 'text-blue-700',
-      border: 'border-blue-200',
-    },
-    '주장 인용': {
-      bg: 'bg-amber-50',
-      text: 'text-amber-700',
-      border: 'border-amber-200',
-    },
-    '해석·전망': {
-      bg: 'bg-emerald-50',
-      text: 'text-emerald-700',
-      border: 'border-emerald-200',
+  if (!data) {
+    return { title: '본론' };
+  }
+
+  const sources = data.articles
+    .map((a: { source: string }) => a.source)
+    .join(' vs ');
+
+  return {
+    title: `${data.keyword} — ${sources} | 본론`,
+    description: `같은 사건, 다른 시각. ${data.keyword}에 대한 ${sources} 보도 방식을 비교합니다.`,
+    openGraph: {
+      title: `${data.keyword} — ${sources}`,
+      description: `같은 사건, 다른 시각 | 본론`,
+      url: `https://bon-ron.vercel.app/result/${id}`,
+      siteName: '본론',
+      type: 'article',
     },
   };
-
-interface ResultPageProps {
-  params: Promise<{ id: string }>;
 }
 
 export default async function ResultPage({ params }: ResultPageProps) {
@@ -62,37 +66,46 @@ export default async function ResultPage({ params }: ResultPageProps) {
     articles[1]?.analysis.keywords.includes(k),
   );
 
-  console.log(articles);
+  // console.log(articles);
 
-  const rows = [
-    {
-      key: 'WHO',
-      getVal: (a: Article) => a.analysis.who,
-      isDiff: articles[0].analysis.who !== articles[1]?.analysis.who,
-    },
-    {
-      key: 'WHAT',
-      getVal: (a: Article) => a.analysis.what,
-      isDiff: articles[0].analysis.what !== articles[1]?.analysis.what,
-    },
-    {
-      key: 'WHY',
-      getVal: (a: Article) => a.analysis.why,
-      isDiff: articles[0].analysis.why !== articles[1]?.analysis.why,
-    },
-    {
-      key: 'WHEN/WHERE',
-      getVal: (a: Article) => a.analysis.when_where,
-      isDiff:
-        articles[0].analysis.when_where !== articles[1]?.analysis.when_where,
-    },
-    {
-      key: 'TONE',
-      getVal: (a: Article) => a.analysis.tone,
-      isDiff: articles[0].analysis.tone !== articles[1]?.analysis.tone,
-      isTone: true,
-    },
-  ];
+  // const rows = [
+  //   {
+  //     key: 'WHO',
+  //     getVal: (a: Article) => a.analysis.who,
+  //     isDiff: articles[0].analysis.who !== articles[1]?.analysis.who,
+  //   },
+  //   {
+  //     key: 'WHAT',
+  //     getVal: (a: Article) => a.analysis.what,
+  //     isDiff: articles[0].analysis.what !== articles[1]?.analysis.what,
+  //   },
+  //   {
+  //     key: 'WHY',
+  //     getVal: (a: Article) => a.analysis.why,
+  //     isDiff: articles[0].analysis.why !== articles[1]?.analysis.why,
+  //   },
+  //   {
+  //     key: 'WHEN/WHERE',
+  //     getVal: (a: Article) => a.analysis.when_where,
+  //     isDiff:
+  //       articles[0].analysis.when_where !== articles[1]?.analysis.when_where,
+  //   },
+  //   {
+  //     key: 'TONE',
+  //     getVal: (a: Article) => a.analysis.tone,
+  //     isDiff: articles[0].analysis.tone !== articles[1]?.analysis.tone,
+  //     isTone: true,
+  //   },
+  // ];
+
+  const rows = ANALYSIS_ROW_KEYS.map((row) => ({
+    ...row,
+    getVal: (a: Article) => a.analysis[row.field],
+    isDiff:
+      articles[0].analysis[row.field] !== articles[1]?.analysis[row.field],
+  }));
+
+  const sources = articles.map((a) => a.source).join(' vs ');
 
   return (
     <div className="min-h-screen bg-[#f5f4f0] px-4 py-6 font-sans">
@@ -105,8 +118,18 @@ export default async function ResultPage({ params }: ResultPageProps) {
           >
             ← 검색으로
           </Link>
-          <div className="text-xl font-medium tracking-tight">본론</div>
-          <div className="w-14" />
+          <div className="text-xl font-medium tracking-tight relative translate-x-6">
+            본론
+          </div>
+
+          <div className="flex flex-row gap-2">
+            <CopyButton />
+            <KakaoShareButton
+              title={`${keyword} — ${sources}`}
+              description="같은 사건, 다른 시각 | 본론"
+              url={`https://bon-ron.vercel.app/result/${id}`}
+            />
+          </div>
         </div>
 
         {/* 면책 문구 */}
@@ -233,7 +256,7 @@ export default async function ResultPage({ params }: ResultPageProps) {
               </div>
 
               {/* 헤더 */}
-              <div className="grid grid-cols-[88px_1fr_1fr] bg-gray-50 border-b border-gray-100">
+              <div className="grid grid-cols-[1fr_2fr_2fr] bg-gray-50 border-b border-gray-100">
                 <div className="px-4 py-3 border-r border-gray-100" />
                 {articles.map((a, i) => {
                   const tone =
@@ -258,7 +281,7 @@ export default async function ResultPage({ params }: ResultPageProps) {
               {rows.map((row, ri) => (
                 <div
                   key={row.key}
-                  className={`grid grid-cols-[88px_1fr_1fr] ${ri < rows.length - 1 ? 'border-b border-gray-100' : ''}`}
+                  className={`grid grid-cols-[1fr_2fr_2fr] ${ri < rows.length - 1 ? 'border-b border-gray-100' : ''}`}
                 >
                   <div className="px-4 py-4 bg-gray-50 border-r border-gray-100 flex flex-col justify-start gap-1.5">
                     <div className="text-xs font-medium text-gray-400 uppercase tracking-widest">

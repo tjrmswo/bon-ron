@@ -13,7 +13,7 @@ export function useNewsSearch(options?: UseNewsSearchOptions) {
         params: { search: query },
       });
 
-      console.log('뉴스 검색 결과:', data);
+      // console.log('뉴스 검색 결과:', data);
       return data;
     },
     onSuccess: (data) => {
