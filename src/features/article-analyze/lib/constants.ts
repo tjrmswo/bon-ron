@@ -21,6 +21,6 @@ export const TONE_STYLE: Record<string, { bg: string; text: string; border: stri
     { key: 'WHO', field: 'who' as const, isTone: false },
     { key: 'WHAT', field: 'what' as const, isTone: false },
     { key: 'WHY', field: 'why' as const, isTone: false },
-    { key: 'WHEN/WHERE', field: 'when_where' as const, isTone: false },
+    { key: 'WHEN', field: 'when_where' as const, isTone: false },
     { key: 'TONE', field: 'tone' as const, isTone: true },
   ] as const;
