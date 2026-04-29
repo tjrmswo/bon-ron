@@ -11,14 +11,21 @@ import {
   useSearchModel,
   useSelectedNewsStore,
 } from '@/features/article-analyze';
-import { Loader } from '@/shared';
+import { Loader, Toast } from '@/shared';
 
 export function ArticleAnalyzeSection() {
   const [query, setQuery] = useState('');
   const { selectedNews } = useSelectedNewsStore();
 
-  const { mode, toggleMode, handleSearch, searchData, isSuccess, isLoading } =
-    useSearchModel();
+  const {
+    mode,
+    toggleMode,
+    handleSearch,
+    searchData,
+    isSuccess,
+    isLoading,
+    isSearchError,
+  } = useSearchModel();
 
   const {
     pasteText,
@@ -33,11 +40,10 @@ export function ArticleAnalyzeSection() {
     handleCompare,
     handleAnalyze,
     isPending: isAnalyzePending,
+    toastMessage,
+    clearToast,
+    isAnalyzeError,
   } = useAnalyzeModel(mode, query);
-
-  // useEffect(() => {
-  //   console.log('selected articles:', selectedNews);
-  // }, [selectedNews]);
 
   return (
     <form onSubmit={(e) => handleSearch(e, query)} className="mb-6">
@@ -55,7 +61,22 @@ export function ArticleAnalyzeSection() {
         </div>
       )}
       {isLoading && <Loader />}
-      {!isLoading && isSuccess && (
+
+      {/* 검색 실패 */}
+      {!isLoading && isSearchError && (
+        <p className="text-sm text-gray-400 text-center py-8">
+          검색 중 오류가 발생했습니다. 다시 시도해주세요.
+        </p>
+      )}
+
+      {/* 빈 결과 */}
+      {!isLoading && isSuccess && !searchData?.groups?.length && (
+        <p className="text-sm text-gray-400 text-center py-8">
+          검색 결과가 없습니다.
+        </p>
+      )}
+
+      {!isLoading && isSuccess && !!searchData?.groups?.length && (
         <ArticleList
           articles={searchData}
           selected={selectedNews}
@@ -63,6 +84,7 @@ export function ArticleAnalyzeSection() {
           canCompare={canCompare}
           handleCompare={() => handleCompare(selectedNews, query)}
           isPending={isAnalyzePending}
+          isAnalyzeError={isAnalyzeError}
         />
       )}
       <PasteSection
@@ -74,6 +96,8 @@ export function ArticleAnalyzeSection() {
       />
 
       <RecentAnalysesList />
+
+      {toastMessage && <Toast message={toastMessage} onClose={clearToast} />}
     </form>
   );
 }
