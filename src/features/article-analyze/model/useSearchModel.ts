@@ -20,6 +20,7 @@ export function useSearchModel() {
     mutate: searchNews,
     data: searchData,
     isPending: isSearching,
+    isError: isSearchError,
   } = useNewsSearch({
     onSuccess: (data) => {
       if (mode === 'cluster') {
@@ -43,12 +44,21 @@ export function useSearchModel() {
     ? { groups: [{ topic: '검색 결과', articles: searchData.items }] }
     : undefined;
 
+    // const isErrors = true;
+    // const isLoadings = false;
+    // const isSuccesses = true;
+
+
   return {
     mode,
     toggleMode,
     handleSearch,
     searchData: mode === 'cluster' ? clusterData : flatAsCluster,
-    isSuccess: mode === 'cluster' ? !!clusterData : !!flatAsCluster, // 각 모드 기준으로
+    isSuccess: mode === 'cluster' ? !!clusterData : !!flatAsCluster,
+    // isSuccess: isSuccesses,
     isLoading: isSearching || (mode === 'cluster' && isClustering),
+    // isLoading: isLoadings,
+    isSearchError,
+    // isSearchError: isErrors,
   };
 }
