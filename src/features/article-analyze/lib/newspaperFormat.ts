@@ -63,6 +63,30 @@ const SOURCE_MAP: Record<string, string> = {
   'www.imaeil.com': '매일신문',
   'www.jemin.com': '제민일보',
   'www.jejunews.com': '제주신문',
+  'weekly.chosun.com': '주간조선',
+  'www.kyongbuk.co.kr': '경북일보',
+  'www.daejonilbo.com': '대전일보',
+  'www.hidomin.com': '호남일보',
+  'www.gnnews.co.kr': '경남신문',
+  'www.jeonmin.co.kr': '전민일보',
+  'www.sjbnews.com': '세종포스트',
+
+  // 기타
+  'www.huffingtonpost.kr': '허핑턴포스트코리아',
+  'www.vop.co.kr': '민중의소리',
+  'www.ilyosisa.co.kr': '일요시사',
+  'www.sportsseoul.com': '스포츠서울',
+  'www.sportalkorea.com': '스포탈코리아',
+  'www.sportschosun.com': '스포츠조선',
+  'www.nocutnews.co.kr': '노컷뉴스',
+  'www.cbs.co.kr': 'CBS',
+  'www.tbs.seoul.kr': 'TBS',
+  'www.ajunews.com': '아주경제',
+  'www.asiatoday.co.kr': '아시아투데이',
+  'www.asiatimes.com': 'Asia Times',
+  'www.koreatimes.co.kr': 'The Korea Times',
+  'www.sidae.com': '시대일보',
+  'mbn.co.kr': 'MBN',
 };
 
 export function getSourceName(originallink: string) {
