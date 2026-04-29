@@ -27,7 +27,7 @@ export function ArticleCard({
       <div className="flex items-center justify-between mb-2">
         <div className="text-sm font-medium">{source}</div>
         <div
-          className={`text-xs px-2 py-0.5 rounded-full border font-medium ${tone.bg} ${tone.text} ${tone.border}`}
+          className={`text-xs px-2 py-0.5 rounded-full border font-medium whitespace-nowrap ${tone.bg} ${tone.text} ${tone.border}`}
         >
           {tone.label}
         </div>

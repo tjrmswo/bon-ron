@@ -9,7 +9,7 @@ export function SearchBar({ value, onChange }: SearchBarProps) {
         type="text"
         value={value}
         onChange={(e) => onChange(e)}
-        placeholder="사건명으로 검색 (예: 이란 2차 협상 무산)"
+        placeholder="사건명으로 검색 (예: 한국 2002년 월드컵)"
         className="flex-1 h-10 px-4 text-sm border border-gray-200 rounded-lg bg-gray-50 text-gray-900 placeholder:text-gray-400 outline-none focus:border-gray-400 focus:bg-white transition-colors"
       />
       <button
