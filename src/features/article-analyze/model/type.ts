@@ -12,6 +12,7 @@ export interface ArticleListProps {
   canCompare: boolean;
   handleCompare: () => void;
   isPending: boolean;
+  isAnalyzeError: boolean;
 }
 
 export interface PasteSectionProps {

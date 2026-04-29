@@ -1,11 +1,14 @@
-'use client'
+'use client';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { AnalyzeParams } from '../model/type';
 
-
-export function useAnalyze() {
+export function useAnalyze({
+  setToastMessage,
+}: {
+  setToastMessage: (message: string) => void;
+}) {
   const router = useRouter();
 
   return useMutation({
@@ -15,10 +18,12 @@ export function useAnalyze() {
     },
     onSuccess: ({ id }) => {
       router.push(`/result/${String(id)}`);
-      
     },
     onError: (error) => {
-      console.error('분석 실패:', error);
+      if (axios.isAxiosError(error)) {
+        console.log('Axios error:', error.response?.data || error.message);
+        setToastMessage('분석 중 오류가 발생했습니다. 다시 시도해주세요.');
+      }
     },
   });
 }
