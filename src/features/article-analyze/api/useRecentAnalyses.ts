@@ -1,4 +1,3 @@
-// features/article-analyze/api/useRecentAnalyses.ts
 import { useQuery } from '@tanstack/react-query';
 import { createClient } from '@/shared/lib/supabase/client';
 

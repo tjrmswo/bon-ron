@@ -68,36 +68,6 @@ export default async function ResultPage({ params }: ResultPageProps) {
 
   // console.log(articles);
 
-  // const rows = [
-  //   {
-  //     key: 'WHO',
-  //     getVal: (a: Article) => a.analysis.who,
-  //     isDiff: articles[0].analysis.who !== articles[1]?.analysis.who,
-  //   },
-  //   {
-  //     key: 'WHAT',
-  //     getVal: (a: Article) => a.analysis.what,
-  //     isDiff: articles[0].analysis.what !== articles[1]?.analysis.what,
-  //   },
-  //   {
-  //     key: 'WHY',
-  //     getVal: (a: Article) => a.analysis.why,
-  //     isDiff: articles[0].analysis.why !== articles[1]?.analysis.why,
-  //   },
-  //   {
-  //     key: 'WHEN/WHERE',
-  //     getVal: (a: Article) => a.analysis.when_where,
-  //     isDiff:
-  //       articles[0].analysis.when_where !== articles[1]?.analysis.when_where,
-  //   },
-  //   {
-  //     key: 'TONE',
-  //     getVal: (a: Article) => a.analysis.tone,
-  //     isDiff: articles[0].analysis.tone !== articles[1]?.analysis.tone,
-  //     isTone: true,
-  //   },
-  // ];
-
   const rows = ANALYSIS_ROW_KEYS.map((row) => ({
     ...row,
     getVal: (a: Article) => a.analysis[row.field],
@@ -144,7 +114,7 @@ export default async function ResultPage({ params }: ResultPageProps) {
         <div className="bg-white rounded-2xl border border-gray-200 p-6">
           <div className="flex items-baseline gap-3 mb-4">
             <div className="text-2xl font-medium tracking-tight">{keyword}</div>
-            <div className="text-xs px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+            <div className="text-xs px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 whitespace-nowrap">
               {articles.length}개 매체 분석
             </div>
           </div>
@@ -189,7 +159,7 @@ export default async function ResultPage({ params }: ResultPageProps) {
                     TONE_STYLE['단정 서술'];
                   return (
                     <span
-                      className={`text-xs px-2.5 py-1 rounded-full border font-medium ${tone.bg} ${tone.text} ${tone.border}`}
+                      className={`text-xs px-2.5 py-1 rounded-full border font-medium ${tone.bg} ${tone.text} ${tone.border} `}
                     >
                       {articles[0].analysis.tone}
                     </span>
@@ -266,9 +236,11 @@ export default async function ResultPage({ params }: ResultPageProps) {
                       key={a.source}
                       className={`px-4 py-3 flex items-center gap-2 ${i === 0 ? 'border-r border-gray-100' : ''}`}
                     >
-                      <span className="text-sm font-medium">{a.source}</span>
+                      <span className="text-xs font-medium text-gray-700 break-all">
+                        {a.source.replace(/\//g, '/\n')}
+                      </span>
                       <span
-                        className={`text-xs px-2 py-0.5 rounded-full border font-medium ${tone.bg} ${tone.text} ${tone.border}`}
+                        className={`text-xs px-2 py-0.5 rounded-full border font-medium whitespace-nowrap ${tone.bg} ${tone.text} ${tone.border}`}
                       >
                         {a.analysis.tone}
                       </span>
@@ -284,7 +256,7 @@ export default async function ResultPage({ params }: ResultPageProps) {
                   className={`grid grid-cols-[1fr_2fr_2fr] ${ri < rows.length - 1 ? 'border-b border-gray-100' : ''}`}
                 >
                   <div className="px-4 py-4 bg-gray-50 border-r border-gray-100 flex flex-col justify-start gap-1.5">
-                    <div className="text-xs font-medium text-gray-400 uppercase tracking-widest">
+                    <div className="text-xs font-medium text-gray-400 uppercase ">
                       {row.key}
                     </div>
                     {row.isDiff && (

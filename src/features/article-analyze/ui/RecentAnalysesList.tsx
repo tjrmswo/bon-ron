@@ -32,7 +32,7 @@ export function RecentAnalysesList() {
               className="flex items-center justify-between px-4 py-3 rounded-xl border border-gray-100 hover:border-gray-200 hover:bg-gray-50 transition-colors"
             >
               <div className="flex items-center gap-3">
-                <span className="text-xs text-gray-400">
+                <span className="text-xs text-gray-400 shrink-0">
                   {isCompare ? '비교' : '단독'}
                 </span>
                 <span className="text-sm text-gray-700">
