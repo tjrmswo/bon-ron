@@ -1,8 +1,5 @@
-
 import { createClient } from '@/shared/lib/supabase/client';
-
-type Mode = 'flat' | 'cluster';
-type EventType = 'deselect' | 'compare_start';
+import { EventType, Mode } from '../model/type';
 
 export function useExperimentLog() {
   const log = async ({

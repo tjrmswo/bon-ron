@@ -85,3 +85,10 @@ export interface Article {
 export interface ResultPageProps {
   params: Promise<{ id: string }>;
 }
+
+export interface UseNewsSearchOptions {
+  onSuccess?: (data: NewsResultProps) => void;
+}
+
+export type Mode = 'flat' | 'cluster';
+export type EventType = 'deselect' | 'compare_start';

@@ -1,10 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
-import { NewsResultProps } from '../model/type';
-
-interface UseNewsSearchOptions {
-  onSuccess?: (data: NewsResultProps) => void;
-}
+import { NewsResultProps, UseNewsSearchOptions } from '../model/type';
 
 export function useNewsSearch(options?: UseNewsSearchOptions) {
   return useMutation<NewsResultProps, Error, string>({
