@@ -3,13 +3,11 @@ import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { AnalyzeParams } from '../model/type';
+import { useToastMessageStore } from '../model/useToastMessageStore';
 
-export function useAnalyze({
-  setToastMessage,
-}: {
-  setToastMessage: (message: string) => void;
-}) {
+export function useAnalyze() {
   const router = useRouter();
+  const { setToastMessage } = useToastMessageStore();
 
   return useMutation({
     mutationFn: async (params: AnalyzeParams) => {
