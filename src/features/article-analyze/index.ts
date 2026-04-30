@@ -6,6 +6,7 @@ export { ArticleCard } from './ui/ArticleCard';
 export { CopyButton } from './ui/CopyButton';
 export { RecentAnalysesList } from './ui/RecentAnalysesList';
 export { ToggleButton } from './ui/ToggleButton';
+export {OriginalLinkButton} from './ui/OriginalLinkButton';
 
 //api
 export { useNewsSearch } from './api/useNewsSearch';
@@ -19,6 +20,7 @@ export { useAnalyzeModel } from './model/useAnalyzeModel';
 export { useSelectedNewsStore } from './model/useSelectedNewsStore';
 export type { Article, ResultPageProps } from './model/type';
 export { useToastMessageStore } from './model/useToastMessageStore';
+export { useExperimentLog } from './api/useExperimentLog';
 
 //lib
 export { getSourceName } from './lib/newspaperFormat';

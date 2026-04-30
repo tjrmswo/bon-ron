@@ -1,18 +1,22 @@
 'use client';
 
-import { useState } from 'react';
 import { KakaoShareButtonProps } from '../model/type';
+import {
+  useExperimentLog,
+  useToastMessageStore,
+} from '@/features/article-analyze';
 
 export function KakaoShareButton({
   title,
   description,
   url,
 }: KakaoShareButtonProps) {
-  const [log, setLog] = useState('');
+  const { log } = useExperimentLog();
+  const { setToastMessage } = useToastMessageStore();
 
   const handleShare = () => {
     if (!window.Kakao) {
-      setLog('Kakao SDK 미로드');
+      setToastMessage('Kakao SDK 미로드');
       return;
     }
 
@@ -21,7 +25,7 @@ export function KakaoShareButton({
     }
 
     if (!window.Kakao.isInitialized()) {
-      setLog('초기화 실패: ' + process.env.NEXT_PUBLIC_KAKAO_JS_KEY);
+      setToastMessage('초기화 실패');
       return;
     }
 
@@ -38,9 +42,13 @@ export function KakaoShareButton({
           },
         },
       });
-      setLog('sendDefault 호출 완료');
+      setToastMessage('sendDefault 호출 완료');
+      log({
+        query: title,
+        eventType: 'kakao_share',
+      });
     } catch (e) {
-      setLog('공유 실패: ' + String(e));
+      setToastMessage('공유 실패: ' + String(e));
     }
   };
 
@@ -53,7 +61,6 @@ export function KakaoShareButton({
       >
         카카오톡 공유
       </button>
-      {log && <div className="mt-2 text-xs text-red-500 break-all">{log}</div>}
     </div>
   );
 }

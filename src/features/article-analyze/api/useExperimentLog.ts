@@ -8,8 +8,8 @@ export function useExperimentLog() {
     eventType,
     articleLink,
   }: {
-    mode: Mode;
-    query: string;
+    mode?: Mode;
+    query?: string;
     eventType: EventType;
     articleLink?: string;
   }) => {
@@ -20,6 +20,7 @@ export function useExperimentLog() {
       query,
       event_type: eventType,
       article_link: articleLink ?? null,
+      environment: process.env.NODE_ENV,
     });
   };
 

@@ -11,14 +11,12 @@ import {
   useArticleSelectState,
   useSearchModel,
   useSelectedNewsStore,
-  useToastMessageStore,
 } from '@/features/article-analyze';
 import { Loader, Toast } from '@/shared';
 
 export function ArticleAnalyzeSection() {
   const [query, setQuery] = useState('');
   const { selectedNews } = useSelectedNewsStore();
-  const { message } = useToastMessageStore();
 
   const { mode, toggleMode, handleSearch, searchData, isSuccess, isLoading } =
     useSearchModel();

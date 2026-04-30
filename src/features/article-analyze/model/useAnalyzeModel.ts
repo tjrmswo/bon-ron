@@ -10,7 +10,7 @@ export function useAnalyzeModel(mode: SearchMode, query: string) {
   const { log } = useExperimentLog();
 
   const handleCompare = (selected: NewsItem[], keyword: string) => {
-    log({ mode, query, eventType: 'compare_start' }); // 추가
+    log({ mode, query, eventType: 'compare_start' }); // 비교 시작 로그
     analyze({
       keyword,
       articles: selected.map((article) => ({

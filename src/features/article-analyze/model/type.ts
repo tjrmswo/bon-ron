@@ -91,4 +91,4 @@ export interface UseNewsSearchOptions {
 }
 
 export type Mode = 'flat' | 'cluster';
-export type EventType = 'deselect' | 'compare_start';
+export type EventType = 'deselect' | 'compare_start' | 'kakao_share' | 'original_link_click';
