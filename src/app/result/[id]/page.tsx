@@ -3,6 +3,7 @@ import {
   Article,
   ArticleCard,
   CopyButton,
+  OriginalLinkButton,
   ResultPageProps,
   TONE_STYLE,
 } from '@/features/article-analyze';
@@ -10,7 +11,7 @@ import { createClient } from '@/shared/lib/supabase/server';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
-import { KakaoShareButton } from '@/shared';
+import { KakaoShareButton, Toast } from '@/shared';
 
 export async function generateMetadata({
   params,
@@ -349,23 +350,33 @@ export default async function ResultPage({ params }: ResultPageProps) {
               </div>
             </div>
 
-            {/* ── 비교 원문 링크 (기존 유지) ── */}
-            <div className="grid grid-cols-2 gap-3">
-              {articles.map((a) => (
-                <a
-                  key={a.source}
-                  href={a.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 py-3 rounded-xl border border-gray-200 bg-white text-xs text-gray-400 hover:bg-gray-50 transition-colors"
-                >
-                  {a.source} 원문 보기 →
-                </a>
-              ))}
-            </div>
+              {/* ── 비교 원문 링크 (기존 유지) ── */}
+              {/* <div className="grid grid-cols-2 gap-3">
+                {articles.map((a) => (
+                  <a
+                    key={a.source}
+                    href={a.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() =>
+                      log({
+                        query,
+                        eventType: 'original_link_click',
+                        articleLink: article.link,
+                      })
+                    }
+                    className="flex items-center justify-center gap-2 py-3 rounded-xl border border-gray-200 bg-white text-xs text-gray-400 hover:bg-gray-50 transition-colors"
+                  >
+                    {a.source} 원문 보기 →
+                  </a>
+                ))}
+              </div> */}
+              <OriginalLinkButton articles={articles} />
           </>
         )}
       </div>
+
+      <Toast />
     </div>
   );
 }

@@ -48,7 +48,7 @@ export function useSearchModel() {
     toggleMode,
     handleSearch,
     searchData: mode === 'cluster' ? clusterData : flatAsCluster,
-    isSuccess: mode === 'cluster' ? !!clusterData : !!flatAsCluster, // 각 모드 기준으로
+    isSuccess: mode === 'cluster' ? !!clusterData : !!flatAsCluster,
     isLoading: isSearching || (mode === 'cluster' && isClustering),
   };
 }
