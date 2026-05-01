@@ -6,7 +6,8 @@ export { ArticleCard } from './ui/ArticleCard';
 export { CopyButton } from './ui/CopyButton';
 export { RecentAnalysesList } from './ui/RecentAnalysesList';
 export { ToggleButton } from './ui/ToggleButton';
-export {OriginalLinkButton} from './ui/OriginalLinkButton';
+export { OriginalLinkButton } from './ui/OriginalLinkButton';
+export { ArticleAnalyzeSection } from './ui/ArticleAnalyzeSection';
 
 //api
 export { useNewsSearch } from './api/useNewsSearch';

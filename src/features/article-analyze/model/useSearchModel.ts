@@ -8,6 +8,7 @@ import { useSelectedNewsStore } from './useSelectedNewsStore';
 
 export function useSearchModel() {
   const [mode, setMode] = useState<SearchMode>('cluster');
+  const [query, setQuery] = useState('');
   const { clearNews } = useSelectedNewsStore();
 
   const {
@@ -42,6 +43,11 @@ export function useSearchModel() {
   const flatAsCluster = searchData
     ? { groups: [{ topic: '검색 결과', articles: searchData.items }] }
     : undefined;
+  
+  
+    const handleQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setQuery(e.target.value);
+    };
 
   return {
     mode,
@@ -50,5 +56,7 @@ export function useSearchModel() {
     searchData: mode === 'cluster' ? clusterData : flatAsCluster,
     isSuccess: mode === 'cluster' ? !!clusterData : !!flatAsCluster,
     isLoading: isSearching || (mode === 'cluster' && isClustering),
+    query,
+    handleQuery,
   };
 }
