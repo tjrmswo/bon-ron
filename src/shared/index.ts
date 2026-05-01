@@ -7,5 +7,6 @@ export { Textarea } from './ui/textarea';
 export { Button } from './ui/button';
 export { Loader } from './ui/loader';
 export { KakaoShareButton } from './ui/KakaoShareButton';
+export { Toast } from './ui/Toast';
 
 // lib

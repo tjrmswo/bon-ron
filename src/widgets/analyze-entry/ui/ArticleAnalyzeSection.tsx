@@ -6,12 +6,13 @@ import {
   PasteSection,
   RecentAnalysesList,
   SearchBar,
+  ToggleButton,
   useAnalyzeModel,
   useArticleSelectState,
   useSearchModel,
   useSelectedNewsStore,
 } from '@/features/article-analyze';
-import { Loader } from '@/shared';
+import { Loader, Toast } from '@/shared';
 
 export function ArticleAnalyzeSection() {
   const [query, setQuery] = useState('');
@@ -33,29 +34,20 @@ export function ArticleAnalyzeSection() {
     handleCompare,
     handleAnalyze,
     isPending: isAnalyzePending,
+    isAnalyzeError,
   } = useAnalyzeModel(mode, query);
-
-  // useEffect(() => {
-  //   console.log('selected articles:', selectedNews);
-  // }, [selectedNews]);
 
   return (
     <form onSubmit={(e) => handleSearch(e, query)} className="mb-6">
       <SearchBar value={query} onChange={(e) => setQuery(e.target.value)} />
       {/* A/B 토글 — 검색 결과 있을 때만 표시 */}
       {isSuccess && !isLoading && (
-        <div className="flex justify-end mb-2">
-          <button
-            type="button"
-            onClick={toggleMode}
-            className="text-xs px-3 py-1.5 rounded-lg border border-gray-200 text-gray-400 hover:border-gray-300 hover:text-gray-600 transition-colors"
-          >
-            {mode === 'cluster' ? '📋 목록 보기' : '🗂 그룹 보기'}
-          </button>
-        </div>
+        <ToggleButton mode={mode} toggleMode={toggleMode} />
       )}
+
       {isLoading && <Loader />}
-      {!isLoading && isSuccess && (
+
+      {!isLoading && isSuccess && !!searchData?.groups?.length && (
         <ArticleList
           articles={searchData}
           selected={selectedNews}
@@ -63,8 +55,10 @@ export function ArticleAnalyzeSection() {
           canCompare={canCompare}
           handleCompare={() => handleCompare(selectedNews, query)}
           isPending={isAnalyzePending}
+          isAnalyzeError={isAnalyzeError}
         />
       )}
+
       <PasteSection
         value={pasteText}
         onChange={handlePasteTextChange}
@@ -74,6 +68,8 @@ export function ArticleAnalyzeSection() {
       />
 
       <RecentAnalysesList />
+
+      <Toast />
     </form>
   );
 }

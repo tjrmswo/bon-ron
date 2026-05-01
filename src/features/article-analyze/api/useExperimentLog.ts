@@ -1,8 +1,5 @@
-
 import { createClient } from '@/shared/lib/supabase/client';
-
-type Mode = 'flat' | 'cluster';
-type EventType = 'deselect' | 'compare_start';
+import { EventType, Mode } from '../model/type';
 
 export function useExperimentLog() {
   const log = async ({
@@ -11,8 +8,8 @@ export function useExperimentLog() {
     eventType,
     articleLink,
   }: {
-    mode: Mode;
-    query: string;
+    mode?: Mode;
+    query?: string;
     eventType: EventType;
     articleLink?: string;
   }) => {
@@ -23,6 +20,7 @@ export function useExperimentLog() {
       query,
       event_type: eventType,
       article_link: articleLink ?? null,
+      environment: process.env.NODE_ENV,
     });
   };
 

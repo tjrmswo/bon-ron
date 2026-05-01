@@ -13,6 +13,7 @@ export function ArticleList({
   canCompare,
   handleCompare,
   isPending,
+  isAnalyzeError
 }: ArticleListProps) {
   return (
     <div className="flex flex-col gap-4 mb-7">
@@ -82,6 +83,12 @@ export function ArticleList({
         >
           {isPending ? '분석 중...' : `${selected.length}개 기사 비교 분석 →`}
         </Button>
+
+        {isAnalyzeError && (
+          <p className="text-xs text-red-400 text-center mt-2">
+            분석 중 오류가 발생했습니다. 다시 시도해주세요.
+          </p>
+        )}
       </div>
     </div>
   );
