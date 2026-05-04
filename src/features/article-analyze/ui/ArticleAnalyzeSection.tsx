@@ -17,33 +17,28 @@ export function ArticleAnalyzeSection() {
   const {
     mode,
     toggleMode,
-    handleSearch,
     searchData,
     isSuccess,
     isLoading,
     query,
-    handleQuery,
+    handleSearch,
   } = useSearchModel();
 
-  const {
-    pasteText,
-    handlePasteTextChange,
-    toggleArticle,
-    handleReset,
-    canCompare,
-    canAnalyze,
-  } = useArticleSelectState(mode, query, selectedNews);
+  const { toggleArticle, canCompare } = useArticleSelectState(
+    mode,
+    query,
+    selectedNews,
+  );
 
   const {
     handleCompare,
-    handleAnalyze,
     isPending: isAnalyzePending,
     isAnalyzeError,
   } = useAnalyzeModel(mode, query);
 
   return (
-    <form onSubmit={(e) => handleSearch(e, query)} className="mb-6">
-      <SearchBar value={query} onChange={handleQuery} />
+    <div className="mb-6">
+      <SearchBar onSubmit={handleSearch} />
       {/* A/B 토글 — 검색 결과 있을 때만 표시 */}
       {isSuccess && !isLoading && (
         <ToggleButton mode={mode} toggleMode={toggleMode} />
@@ -63,17 +58,11 @@ export function ArticleAnalyzeSection() {
         />
       )}
 
-      <PasteSection
-        value={pasteText}
-        onChange={handlePasteTextChange}
-        canAnalyze={canAnalyze}
-        onReset={handleReset}
-        handleAnalyze={() => handleAnalyze(pasteText)}
-      />
+      <PasteSection />
 
       <RecentAnalysesList />
 
       <Toast />
-    </form>
+    </div>
   );
 }

@@ -30,8 +30,7 @@ export function useSearchModel() {
     },
   });
 
-  const handleSearch = (e: React.FormEvent<HTMLFormElement>, query: string) => {
-    e.preventDefault();
+  const handleSearch = (query: string) => {
     if (query.trim()) searchNews(query);
   };
 

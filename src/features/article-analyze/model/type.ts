@@ -1,10 +1,5 @@
 import { ArticleInput } from './schemas';
 
-export interface SearchBarProps {
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
-
 export interface ArticleListProps {
   articles: ClusterResult | undefined;
   selected: NewsItem[];
@@ -13,14 +8,6 @@ export interface ArticleListProps {
   handleCompare: () => void;
   isPending: boolean;
   isAnalyzeError: boolean;
-}
-
-export interface PasteSectionProps {
-  value: string;
-  onChange: (v: string) => void;
-  canAnalyze: boolean;
-  onReset: () => void;
-  handleAnalyze: () => void;
 }
 
 export interface NewsItem {
@@ -53,7 +40,7 @@ export type NaverArticle = {
 };
 
 type ArticleGroup = {
-  topic: string; 
+  topic: string;
   articles: NaverArticle[];
 };
 

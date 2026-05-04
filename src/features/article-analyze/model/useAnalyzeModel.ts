@@ -24,16 +24,8 @@ export function useAnalyzeModel(mode: SearchMode, query: string) {
     analyze({ keyword, articles });
   };
 
-  const handleAnalyze = (pasteText: string) => {
-    analyze({
-      keyword: '붙여넣기 분석',
-      articles: [{ title: '', content: pasteText }],
-    });
-  };
-
   return {
     handleCompare,
-    handleAnalyze,
     isPending,
     isAnalyzeError,
   };
