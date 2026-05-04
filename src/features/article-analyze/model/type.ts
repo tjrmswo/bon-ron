@@ -44,24 +44,22 @@ export interface AnalyzeParams {
   keyword?: string;
 }
 
-// 기존 — 네이버 API 응답 그대로
 export type NaverArticle = {
   title: string;
   description: string;
   link: string;
   originallink: string;
   pubDate: string;
-}
+};
 
-// 신규 — 클러스터링 결과
 type ArticleGroup = {
-  topic: string;        // AI가 추출한 사건명 (예: "이란 2차 협상 무산")
+  topic: string; 
   articles: NaverArticle[];
-}
+};
 
 export type ClusterResult = {
   groups: ArticleGroup[];
-}
+};
 
 export type SearchMode = 'flat' | 'cluster';
 
@@ -91,7 +89,11 @@ export interface UseNewsSearchOptions {
 }
 
 export type Mode = 'flat' | 'cluster';
-export type EventType = 'deselect' | 'compare_start' | 'kakao_share' | 'original_link_click';
+export type EventType =
+  | 'deselect'
+  | 'compare_start'
+  | 'kakao_share'
+  | 'original_link_click';
 
 type RowBase = { getVal: (a: Article) => string | null; isDiff: boolean };
 
@@ -101,3 +103,14 @@ export type Row =
   | (RowBase & { key: 'WHY'; field: 'why'; isTone: false })
   | (RowBase & { key: 'WHEN'; field: 'when_where'; isTone: false })
   | (RowBase & { key: 'TONE'; field: 'tone'; isTone: true });
+
+interface RecentAnalysisArticle {
+  source: string;
+}
+
+export interface RecentAnalysis {
+  id: string;
+  keyword: string | null;
+  articles: RecentAnalysisArticle[];
+  created_at: string;
+}
