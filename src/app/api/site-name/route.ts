@@ -1,8 +1,8 @@
+import { parse } from 'tldts';
+
 const extractDomain = (url: string): string => {
-  const hostname = new URL(url).hostname;
-  return hostname
-    .replace(/^www\./, '')
-    .replace(/\.(com|co\.kr|net|org|kr)$/, '');
+  const { domainWithoutSuffix } = parse(url);
+  return domainWithoutSuffix ?? new URL(url).hostname;
 };
 
 export async function GET(request: Request) {
