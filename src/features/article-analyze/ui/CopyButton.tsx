@@ -2,7 +2,7 @@
 import { useState } from 'react';
 
 export function CopyButton() {
-  const [copied, setCopied] = useState(false);
+  const [copied, setCopied] = useState<boolean>(false);
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(window.location.href);
