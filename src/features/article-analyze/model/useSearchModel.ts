@@ -43,11 +43,6 @@ export function useSearchModel() {
   const flatAsCluster = searchData
     ? { groups: [{ topic: '검색 결과', articles: searchData.items }] }
     : undefined;
-  
-  
-    const handleQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setQuery(e.target.value);
-    };
 
   const handleQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
