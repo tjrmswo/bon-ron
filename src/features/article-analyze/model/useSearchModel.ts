@@ -31,7 +31,10 @@ export function useSearchModel() {
   });
 
   const handleSearch = (query: string) => {
-    if (query.trim()) searchNews(query);
+    if (query.trim()) {
+      setQuery(query); // ← 검색 실행 시점에 저장
+      searchNews(query);
+    }
   };
 
   const toggleMode = () => {
