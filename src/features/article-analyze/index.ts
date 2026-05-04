@@ -14,8 +14,6 @@ export { SingleAnalysisSection } from './ui/SingleAnalysisSection';
 export { PairAnalysisSection } from './ui/PairAnalysisSection';
 
 //api
-export { useNewsSearch } from './api/useNewsSearch';
-export { useAnalyze } from './api/useAnalyze';
 export { getAnalysisById } from './api/getAnalysisById';
 
 // model
@@ -26,7 +24,9 @@ export { useAnalyzeModel } from './model/useAnalyzeModel';
 export { useSelectedNewsStore } from './model/useSelectedNewsStore';
 export type { Article, ResultPageProps } from './model/type';
 export { useToastMessageStore } from './model/useToastMessageStore';
-export { useExperimentLog } from './api/useExperimentLog';
+export { logExperiment } from './api/logExperiment';
+export { useAnalyze } from './model/useAnalyze';
+export { useNewsSearch } from './model/useNewsSearch';
 
 //lib
 export { getSourceName } from './lib/newspaperFormat';

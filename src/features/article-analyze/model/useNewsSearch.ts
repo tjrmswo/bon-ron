@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
-import { NewsResultProps, UseNewsSearchOptions } from '../model/type';
-import { useToastMessageStore } from '../model/useToastMessageStore';
+import { NewsResultProps, UseNewsSearchOptions } from './type';
+import { useToastMessageStore } from './useToastMessageStore';
 
 export function useNewsSearch(options?: UseNewsSearchOptions) {
   const { setToastMessage } = useToastMessageStore();

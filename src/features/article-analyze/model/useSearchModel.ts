@@ -1,7 +1,7 @@
 'use client';
 
-import { useNewsSearch } from '../api/useNewsSearch';
-import { useCluster } from '../api/useCluster';
+import { useNewsSearch } from './useNewsSearch';
+import { useCluster } from './useCluster';
 import { useState } from 'react';
 import { SearchMode } from './type';
 import { useSelectedNewsStore } from './useSelectedNewsStore';
@@ -43,11 +43,10 @@ export function useSearchModel() {
   const flatAsCluster = searchData
     ? { groups: [{ topic: '검색 결과', articles: searchData.items }] }
     : undefined;
-  
-  
-    const handleQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setQuery(e.target.value);
-    };
+
+  const handleQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
+  };
 
   return {
     mode,

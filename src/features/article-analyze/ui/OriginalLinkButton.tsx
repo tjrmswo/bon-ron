@@ -1,9 +1,9 @@
 'use client';
-import { useExperimentLog } from '../api/useExperimentLog';
+import { logExperiment } from '../api/logExperiment';
 import { Article } from '../model/type';
 
 export function OriginalLinkButton({ articles }: { articles: Article[] }) {
-  const { log } = useExperimentLog();
+  const { log } = logExperiment();
 
   return (
     <div className="grid grid-cols-2 gap-3">

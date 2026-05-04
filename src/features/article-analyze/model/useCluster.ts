@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
-import { NaverArticle, ClusterResult } from '../model/type';
-import { useToastMessageStore } from '../model/useToastMessageStore';
+import { NaverArticle, ClusterResult } from './type';
+import { useToastMessageStore } from './useToastMessageStore';
 
 export function useCluster() {
   const { setToastMessage } = useToastMessageStore();

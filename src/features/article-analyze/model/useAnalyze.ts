@@ -2,8 +2,8 @@
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
-import { AnalyzeParams } from '../model/type';
-import { useToastMessageStore } from '../model/useToastMessageStore';
+import { AnalyzeParams } from './type';
+import { useToastMessageStore } from './useToastMessageStore';
 
 export function useAnalyze() {
   const router = useRouter();
