@@ -67,8 +67,6 @@ export default async function ResultPage({ params }: ResultPageProps) {
     articles[1]?.analysis.keywords.includes(k),
   );
 
-  // console.log(articles);
-
   const rows = ANALYSIS_ROW_KEYS.map((row) => ({
     ...row,
     getVal: (a: Article) => a.analysis[row.field],
@@ -121,12 +119,10 @@ export default async function ResultPage({ params }: ResultPageProps) {
           </div>
 
           {articles.length === 1 ? (
-            // 단독 — 제목만 한 줄로
             <div className="text-sm text-gray-500 leading-relaxed">
               {articles[0].title}
             </div>
           ) : (
-            // 비교 — 기존 grid 유지
             <div className="grid grid-cols-2 gap-3">
               {articles.map((a) => {
                 const toneStyle =
@@ -144,7 +140,7 @@ export default async function ResultPage({ params }: ResultPageProps) {
           )}
         </div>
 
-        {/* 분석 결과 — articles 수에 따라 분기 */}
+        {/* 분석 결과 */}
         {articles.length === 1 ? (
           <>
             {/* ── 단독 분석 카드 ── */}
@@ -218,7 +214,7 @@ export default async function ResultPage({ params }: ResultPageProps) {
           </>
         ) : (
           <>
-            {/* ── 비교 테이블 (기존 유지) ── */}
+            {/* 비교 테이블 */}
             <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
               <div className="px-6 py-4 border-b border-gray-100">
                 <div className="text-xs font-medium text-gray-400 uppercase tracking-widest">
@@ -300,7 +296,7 @@ export default async function ResultPage({ params }: ResultPageProps) {
               ))}
             </div>
 
-            {/* ── 비교 키워드 (기존 유지) ── */}
+            {/* 비교 키워드 */}
             <div className="bg-white rounded-2xl border border-gray-200 p-6">
               <div className="text-xs font-medium text-gray-400 uppercase tracking-widest mb-4">
                 키워드
@@ -350,28 +346,8 @@ export default async function ResultPage({ params }: ResultPageProps) {
               </div>
             </div>
 
-              {/* ── 비교 원문 링크 (기존 유지) ── */}
-              {/* <div className="grid grid-cols-2 gap-3">
-                {articles.map((a) => (
-                  <a
-                    key={a.source}
-                    href={a.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() =>
-                      log({
-                        query,
-                        eventType: 'original_link_click',
-                        articleLink: article.link,
-                      })
-                    }
-                    className="flex items-center justify-center gap-2 py-3 rounded-xl border border-gray-200 bg-white text-xs text-gray-400 hover:bg-gray-50 transition-colors"
-                  >
-                    {a.source} 원문 보기 →
-                  </a>
-                ))}
-              </div> */}
-              <OriginalLinkButton articles={articles} />
+            {/* 비교 원문 링크 */}
+            <OriginalLinkButton articles={articles} />
           </>
         )}
       </div>

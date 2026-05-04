@@ -12,12 +12,11 @@ export function useNewsSearch(options?: UseNewsSearchOptions) {
         params: { search: query },
       });
 
-      // console.log('뉴스 검색 결과:', data);
       return data;
     },
     onSuccess: (data) => {
       options?.onSuccess?.(data);
-      if(!data.items || data.items.length === 0) {
+      if (!data.items || data.items.length === 0) {
         setToastMessage('검색 결과가 없습니다.');
       }
     },

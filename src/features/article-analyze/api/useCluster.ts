@@ -10,7 +10,6 @@ export function useCluster() {
     mutationFn: async (items: NaverArticle[]) => {
       const { data } = await axios.post('/api/cluster', { items });
 
-      // console.log("클러스터링 결과: ", data);
       return data;
     },
     onError: (error) => {

@@ -19,7 +19,6 @@ export function useAnalyze() {
     },
     onError: (error) => {
       if (axios.isAxiosError(error)) {
-        console.log('Axios error:', error.response?.data || error.message);
         setToastMessage('분석 중 오류가 발생했습니다. 다시 시도해주세요.');
       }
     },
