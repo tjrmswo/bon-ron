@@ -9,29 +9,23 @@ export function useAnalyzeModel(mode: SearchMode, query: string) {
   const { mutate: analyze, isPending, isError: isAnalyzeError } = useAnalyze();
   const { log } = logExperiment();
 
-  const handleCompare = (selected: NewsItem[], keyword: string) => {
-    log({ mode, query, eventType: 'compare_start' }); // 비교 시작 로그
-    analyze({
-      keyword,
-      articles: selected.map((article) => ({
+  const handleCompare = async (selected: NewsItem[], keyword: string) => {
+    log({ mode, query, eventType: 'compare_start' });
+
+    const articles = await Promise.all(
+      selected.map(async (article) => ({
         title: stripHtml(article.title),
         content: stripHtml(article.description),
-        source: getSourceName(article.originallink),
+        source: await getSourceName(article.originallink),
         originallink: article.originallink,
       })),
-    });
-  };
+    );
 
-  const handleAnalyze = (pasteText: string) => {
-    analyze({
-      keyword: '붙여넣기 분석',
-      articles: [{ title: '', content: pasteText }],
-    });
+    analyze({ keyword, articles });
   };
 
   return {
     handleCompare,
-    handleAnalyze,
     isPending,
     isAnalyzeError,
   };

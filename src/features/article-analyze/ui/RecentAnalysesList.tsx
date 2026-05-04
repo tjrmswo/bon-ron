@@ -4,11 +4,12 @@ import Link from 'next/link';
 import { useRecentAnalyses } from '../api/useRecentAnalyses';
 import { dateFormat } from '../lib/dateFormat';
 import { RecentAnalysis } from '../model/type';
+import { Loader } from '@/shared';
 
 export function RecentAnalysesList() {
   const { data, isLoading } = useRecentAnalyses();
 
-  if (isLoading) return null;
+  if (isLoading) return <Loader />;
   if (!data?.length) return null;
 
   return (

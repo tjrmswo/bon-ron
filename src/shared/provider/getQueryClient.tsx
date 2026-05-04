@@ -1,9 +1,4 @@
-// getQueryClient.ts
-import {
-  isServer,
-  QueryClient,
-  defaultShouldDehydrateQuery,
-} from '@tanstack/react-query';
+import { isServer, QueryClient } from '@tanstack/react-query';
 
 const DEFAULT_STALE_TIME = 60 * 1000;
 
@@ -11,7 +6,6 @@ function makeQueryClient() {
   return new QueryClient({
     defaultOptions: {
       queries: {
-        // staleTime을 60초로 잡아서 즉시 refetch 방지
         staleTime: DEFAULT_STALE_TIME,
       },
     },

@@ -1,16 +1,12 @@
 'use client';
 
-import { PasteSectionProps } from '../model/type';
+import { usePaste } from '../model/usePaste';
 
-export function PasteSection({
-  value,
-  onChange,
-  canAnalyze,
-  onReset,
-  handleAnalyze,
-}: PasteSectionProps) {
+export function PasteSection() {
+  const { canAnalyze, onReset, onSubmit, onChange, pasteText } = usePaste();
+
   return (
-    <>
+    <form onSubmit={onSubmit}>
       <div className="flex items-center gap-3 mb-6">
         <div className="flex-1 h-px bg-gray-100" />
         <span className="text-xs text-gray-400">또는 본문 직접 분석</span>
@@ -18,8 +14,8 @@ export function PasteSection({
       </div>
 
       <textarea
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
+        value={pasteText}
+        onChange={onChange}
         placeholder="기사 본문을 여기에 붙여넣으세요…"
         className="w-full min-h-27.5 px-4 py-3 text-sm border border-gray-100 rounded-lg bg-gray-50 text-gray-800 placeholder:text-gray-400 outline-none focus:border-gray-300 focus:bg-white transition-colors resize-none leading-relaxed"
       />
@@ -33,9 +29,8 @@ export function PasteSection({
           초기화
         </button>
         <button
-          onClick={handleAnalyze}
+          type="submit"
           disabled={!canAnalyze}
-          type="button"
           className={`h-9 px-5 text-sm font-medium rounded-lg transition-colors cursor-pointer ${
             canAnalyze
               ? 'bg-emerald-600 text-white hover:bg-emerald-600/70'
@@ -45,6 +40,6 @@ export function PasteSection({
           단독 분석
         </button>
       </div>
-    </>
+    </form>
   );
 }
