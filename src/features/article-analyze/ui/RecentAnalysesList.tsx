@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useRecentAnalyses } from '../api/useRecentAnalyses';
 import { dateFormat } from '../lib/dateFormat';
+import { RecentAnalysis } from '../model/type';
 
 export function RecentAnalysesList() {
   const { data, isLoading } = useRecentAnalyses();
@@ -14,16 +15,14 @@ export function RecentAnalysesList() {
     <div className="mt-8">
       <p className="text-xs text-gray-400 mb-3">최근 분석</p>
       <div className="flex flex-col gap-2">
-        {data.map((item) => {
-          const articles = item.articles as { source: string }[];
-          const isCompare = articles.length >= 2;
-          const sources = articles
+        {data.map((item: RecentAnalysis) => {
+          if (!item.keyword || item.keyword === '붙여넣기 분석') return null;
+
+          const isCompare = item.articles.length >= 2;
+          const sources = item.articles
             .map((a) => a.source)
             .filter(Boolean)
             .join(' vs ');
-
-          // keyword가 null이거나 '붙여넣기 분석'이면 스킵
-          if (!item.keyword || item.keyword === '붙여넣기 분석') return null;
 
           return (
             <Link

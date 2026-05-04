@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
-import { NewsResultProps, UseNewsSearchOptions } from '../model/type';
-import { useToastMessageStore } from '../model/useToastMessageStore';
+import { NewsResultProps, UseNewsSearchOptions } from './type';
+import { useToastMessageStore } from './useToastMessageStore';
 
 export function useNewsSearch(options?: UseNewsSearchOptions) {
   const { setToastMessage } = useToastMessageStore();
@@ -12,12 +12,11 @@ export function useNewsSearch(options?: UseNewsSearchOptions) {
         params: { search: query },
       });
 
-      // console.log('뉴스 검색 결과:', data);
       return data;
     },
     onSuccess: (data) => {
       options?.onSuccess?.(data);
-      if(!data.items || data.items.length === 0) {
+      if (!data.items || data.items.length === 0) {
         setToastMessage('검색 결과가 없습니다.');
       }
     },

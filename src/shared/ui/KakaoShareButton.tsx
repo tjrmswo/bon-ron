@@ -2,7 +2,7 @@
 
 import { KakaoShareButtonProps } from '../model/type';
 import {
-  useExperimentLog,
+  logExperiment,
   useToastMessageStore,
 } from '@/features/article-analyze';
 
@@ -11,7 +11,7 @@ export function KakaoShareButton({
   description,
   url,
 }: KakaoShareButtonProps) {
-  const { log } = useExperimentLog();
+  const { log } = logExperiment();
   const { setToastMessage } = useToastMessageStore();
 
   const handleShare = () => {

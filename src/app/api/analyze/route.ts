@@ -9,10 +9,6 @@ import { createClient } from '@/shared/lib/supabase/server';
 import { ZodError } from 'zod';
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-// const openai = new OpenAI({
-//   apiKey: process.env.GEMINI_API_KEY,
-//   baseURL: 'https://generativelanguage.googleapis.com/v1beta/openai/',
-// });
 
 const MAX_CHARS = 3000;
 function truncate(text: string) {
@@ -54,7 +50,6 @@ async function analyzeArticle(article: ArticleInput) {
 
   try {
     completion = await openai.chat.completions.create({
-      // model: 'gemini-2.5-flash',
       model: 'gpt-4o-mini',
       messages: [
         { role: 'system', content: SYSTEM_PROMPT },
@@ -85,12 +80,11 @@ async function analyzeArticle(article: ArticleInput) {
     return AnalysisResultSchema.parse(raw);
   } catch (err) {
     console.error('[Zod 검증 실패] raw:', raw);
-    throw err; // ZodError 그대로 throw → POST에서 ZodError로 잡힘
+    throw err;
   }
 }
 
 export async function POST(req: NextRequest) {
-  // 1. 요청 검증
   let body: unknown;
   try {
     body = await req.json();
@@ -111,7 +105,6 @@ export async function POST(req: NextRequest) {
 
   const { articles, keyword } = parsed.data;
 
-  // 2. OpenAI 병렬 분석
   let results: Awaited<ReturnType<typeof analyzeArticle>> extends infer T
     ? {
         source: string | null;
@@ -146,7 +139,6 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // 3. Supabase 저장
   const supabase = await createClient();
 
   const { data, error: dbError } = await supabase
@@ -163,6 +155,5 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // 4. id 반환
   return NextResponse.json({ id: data.id });
 }

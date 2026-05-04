@@ -4,14 +4,13 @@ import { NextRequest } from 'next/server';
 export async function GET(req: NextRequest) {
   const data = req.nextUrl.searchParams.get('search');
 
-  // console.log('Received search query: ', data);
 
   const response = await axios.get(
     'https://openapi.naver.com/v1/search/news.json',
     {
       params: {
         query: data || '',
-        display: 10,
+        display: 20,
         start: 1,
         sort: 'sim',
       },

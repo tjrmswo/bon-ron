@@ -1,7 +1,7 @@
 import { createClient } from '@/shared/lib/supabase/client';
 import { EventType, Mode } from '../model/type';
 
-export function useExperimentLog() {
+export function logExperiment() {
   const log = async ({
     mode,
     query,

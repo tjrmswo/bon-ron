@@ -1,8 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import { createClient } from '@/shared/lib/supabase/client';
+import { RecentAnalysis } from '../model/type';
 
 export function useRecentAnalyses() {
-  return useQuery({
+  return useQuery<RecentAnalysis[]>({
     queryKey: ['recent-analyses'],
     queryFn: async () => {
       const supabase = createClient();
