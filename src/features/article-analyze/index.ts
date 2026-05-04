@@ -8,10 +8,15 @@ export { RecentAnalysesList } from './ui/RecentAnalysesList';
 export { ToggleButton } from './ui/ToggleButton';
 export { OriginalLinkButton } from './ui/OriginalLinkButton';
 export { ArticleAnalyzeSection } from './ui/ArticleAnalyzeSection';
+export { ArticleAnalyzeHeader } from './ui/ArticleAnalyzeHeader';
+export { AnalysisDescription } from './ui/AnalysisDescription';
+export { SingleAnalysisSection } from './ui/SingleAnalysisSection';
+export { PairAnalysisSection } from './ui/PairAnalysisSection';
 
 //api
 export { useNewsSearch } from './api/useNewsSearch';
 export { useAnalyze } from './api/useAnalyze';
+export { getAnalysisById } from './api/getAnalysisById';
 
 // model
 export type { NewsResultProps, NewsItem } from './model/type';
@@ -29,3 +34,6 @@ export { stripHtml } from './lib/striphtml';
 export { dateFormat } from './lib/dateFormat';
 export { TONE_STYLE } from '../article-analyze/lib/constants';
 export { ANALYSIS_ROW_KEYS } from '../article-analyze/lib/constants';
+export { buildRows } from './lib/buildRows';
+export { buildCommonKeywords } from './lib/buildRows';
+export { buildAnalysisMetadata } from './lib/buildMetadata';

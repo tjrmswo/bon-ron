@@ -92,3 +92,12 @@ export interface UseNewsSearchOptions {
 
 export type Mode = 'flat' | 'cluster';
 export type EventType = 'deselect' | 'compare_start' | 'kakao_share' | 'original_link_click';
+
+type RowBase = { getVal: (a: Article) => string | null; isDiff: boolean };
+
+export type Row =
+  | (RowBase & { key: 'WHO'; field: 'who'; isTone: false })
+  | (RowBase & { key: 'WHAT'; field: 'what'; isTone: false })
+  | (RowBase & { key: 'WHY'; field: 'why'; isTone: false })
+  | (RowBase & { key: 'WHEN'; field: 'when_where'; isTone: false })
+  | (RowBase & { key: 'TONE'; field: 'tone'; isTone: true });
