@@ -44,8 +44,10 @@ export function ArticleAnalyzeSection() {
         <ToggleButton mode={mode} toggleMode={toggleMode} />
       )}
 
+      {/* 검색 로더 */}
       {isLoading && <Loader />}
 
+      {/* 검색 결과 */}
       {!isLoading && isSuccess && !!searchData?.groups?.length && (
         <ArticleList
           articles={searchData}
@@ -57,11 +59,12 @@ export function ArticleAnalyzeSection() {
           isAnalyzeError={isAnalyzeError}
         />
       )}
-
+      {/* 붙여넣기 분석 섹션 — 검색 결과 없을 때 표시 */}
       <PasteSection />
 
+      {/* 최근 분석 리스트 */}
       <RecentAnalysesList />
-
+      {/* 토스트 메세지 */}
       <Toast />
     </div>
   );

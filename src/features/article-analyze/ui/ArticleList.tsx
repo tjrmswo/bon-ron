@@ -10,9 +10,8 @@ export function ArticleList({
   canCompare,
   handleCompare,
   isPending,
-  isAnalyzeError
+  isAnalyzeError,
 }: ArticleListProps) {
-  
   return (
     <div className="flex flex-col gap-4 mb-7">
       {articles?.groups.map((group, groupIdx) => (

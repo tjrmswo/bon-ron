@@ -38,7 +38,6 @@ export function useSearchModel() {
     setMode((prev) => (prev === 'cluster' ? 'flat' : 'cluster'));
   };
 
-  // flat 모드: 검색 결과를 ClusterResult 형태로 래핑해서 반환
   const flatAsCluster = searchData
     ? { groups: [{ topic: '검색 결과', articles: searchData.items }] }
     : undefined;

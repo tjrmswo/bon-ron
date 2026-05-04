@@ -12,14 +12,14 @@ export function ArticleCard({
   tone: { bg: string; text: string; border: string; label: string };
   title: string;
 }) {
- const [expanded, setExpanded] = useState(false);
- const [isClamped, setIsClamped] = useState(false);
- const textRef = useRef<HTMLParagraphElement>(null);
+  const [expanded, setExpanded] = useState(false);
+  const [isClamped, setIsClamped] = useState(false);
+  const textRef = useRef<HTMLParagraphElement>(null);
 
- useEffect(() => {
-   const el = textRef.current;
-   if (el) setIsClamped(el.scrollHeight > el.clientHeight);
- }, [title]);
+  useEffect(() => {
+    const el = textRef.current;
+    if (el) setIsClamped(el.scrollHeight > el.clientHeight);
+  }, [title]);
 
   return (
     <div className="bg-gray-50 rounded-xl p-4">

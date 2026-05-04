@@ -15,7 +15,6 @@ export function useArticleSelectState(
   const toggleArticle = (article: NewsItem) => {
     const isDeselecting = selectedNews.some((a) => a.link === article.link);
 
-    // 오선택 취소 시 로그 기록
     if (isDeselecting) {
       log({
         mode,

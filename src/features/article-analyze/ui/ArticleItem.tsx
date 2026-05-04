@@ -1,7 +1,7 @@
-import { dateFormat } from "../lib/dateFormat";
-import { stripHtml } from "../lib/striphtml";
-import { useSourceName } from "../lib/useSourceName";
-import { NewsItem } from "../model/type";
+import { dateFormat } from '../lib/dateFormat';
+import { stripHtml } from '../lib/striphtml';
+import { useSourceName } from '../lib/useSourceName';
+import { NewsItem } from '../model/type';
 
 export function ArticleItem({
   article,
