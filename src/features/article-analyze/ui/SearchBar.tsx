@@ -1,8 +1,12 @@
 'use client';
-import { useSearch } from '../model/useSearch';
+import { useState } from 'react';
 
 export function SearchBar({ onSubmit }: { onSubmit: (query: string) => void }) {
-  const { onChange, query } = useSearch();
+  const [query, setQuery] = useState<string>('');
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
+  };
+
   return (
     <form
       onSubmit={(e) => {
