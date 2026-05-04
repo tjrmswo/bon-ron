@@ -11,7 +11,7 @@ export async function GET(req: NextRequest) {
     {
       params: {
         query: data || '',
-        display: 10,
+        display: 20,
         start: 1,
         sort: 'sim',
       },
