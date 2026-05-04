@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const SOURCE_MAP: Record<string, string> = {
   // 통신사
   'www.yna.co.kr': '연합뉴스',
@@ -89,11 +91,21 @@ const SOURCE_MAP: Record<string, string> = {
   'mbn.co.kr': 'MBN',
 };
 
-export function getSourceName(originallink: string) {
-  try {
-    const domain = new URL(originallink).hostname;
-    return SOURCE_MAP[domain] ?? domain; // 매핑 없으면 도메인 그대로 반환
-  } catch {
-    return '알 수 없음';
-  }
+export async function getSourceName(url: string): Promise<string> {
+  // SOURCE_MAP 우선
+  const mapped = SOURCE_MAP[url];
+  if (mapped) return mapped;
+
+  // 없으면 og:site_name 파싱
+  const { data } = await axios.get('/api/site-name', { params: { url } });
+  return data.siteName ?? new URL(url).hostname; // 최후 fallback은 hostname
 }
+
+// export function getSourceName(originallink: string) {
+//   try {
+//     const domain = new URL(originallink).hostname;
+//     return SOURCE_MAP[domain] ?? domain; // 매핑 없으면 도메인 그대로 반환
+//   } catch {
+//     return '알 수 없음';
+//   }
+// }
