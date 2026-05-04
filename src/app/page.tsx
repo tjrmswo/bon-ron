@@ -1,5 +1,5 @@
 'use client';
-import { ArticleAnalyzeSection } from '@/widgets/analyze-entry';
+import { ArticleAnalyzeSection } from '@/features/article-analyze';
 
 export default function Home() {
   return (

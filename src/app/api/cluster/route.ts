@@ -4,7 +4,6 @@ import { z } from 'zod';
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-// ── 타입 ──────────────────────────────────────────────────
 type NaverArticle = {
   title: string;
   description: string;
@@ -13,17 +12,15 @@ type NaverArticle = {
   pubDate: string;
 };
 
-// ── Zod 스키마 ────────────────────────────────────────────
 const ClusterRawSchema = z.object({
   groups: z.array(
     z.object({
-      topic: z.string().max(20),
+      topic: z.string().max(30),
       indices: z.array(z.number()),
     }),
   ),
 });
 
-// ── 프롬프트 ──────────────────────────────────────────────
 function buildPrompt(articles: NaverArticle[]): string {
   const list = articles
     .map(
@@ -48,7 +45,6 @@ function buildPrompt(articles: NaverArticle[]): string {
 ${list}`;
 }
 
-// ── POST ──────────────────────────────────────────────────
 export async function POST(req: NextRequest) {
   let items: NaverArticle[];
 
@@ -65,7 +61,6 @@ export async function POST(req: NextRequest) {
     return Response.json({ error: '잘못된 요청 형식입니다' }, { status: 400 });
   }
 
-  // Gemini 호출
   let raw: unknown;
   try {
     const completion = await openai.chat.completions.create({
@@ -75,12 +70,10 @@ export async function POST(req: NextRequest) {
     });
 
     const content = completion.choices[0].message.content ?? '';
-    // 마크다운 코드블록 제거 후 파싱
     const cleaned = content.replace(/```json|```/g, '').trim();
     raw = JSON.parse(cleaned);
   } catch (err) {
     console.error('[클러스터링 API 호출 실패]', err);
-    // Gemini 실패 시 전체를 단일 그룹으로 폴백
     return Response.json({
       groups: [
         {
@@ -91,13 +84,12 @@ export async function POST(req: NextRequest) {
     });
   }
 
-  // Zod 검증
   let parsed: z.infer<typeof ClusterRawSchema>;
   try {
     parsed = ClusterRawSchema.parse(raw);
   } catch (err) {
     console.error('[클러스터링 Zod 검증 실패] raw:', raw, err);
-    // 검증 실패 시 단일 그룹 폴백
+
     return Response.json({
       groups: [
         {
@@ -108,13 +100,24 @@ export async function POST(req: NextRequest) {
     });
   }
 
-  // indices → 원본 articles 재조합
+  const usedIndices = new Set(parsed.groups.flatMap((g) => g.indices));
+  const missingIndices = items
+    .map((_, i) => i)
+    .filter((i) => !usedIndices.has(i));
+
   const groups = parsed.groups.map((group) => ({
     topic: group.topic,
     articles: group.indices
       .filter((i) => i >= 0 && i < items.length)
       .map((i) => items[i]),
   }));
+
+  if (missingIndices.length > 0) {
+    groups.push({
+      topic: '기타',
+      articles: missingIndices.map((i) => items[i]),
+    });
+  }
 
   return Response.json({ groups });
 }

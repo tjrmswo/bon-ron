@@ -1,13 +1,14 @@
 'use client';
 
-import { useNewsSearch } from '../api/useNewsSearch';
-import { useCluster } from '../api/useCluster';
+import { useNewsSearch } from './useNewsSearch';
+import { useCluster } from './useCluster';
 import { useState } from 'react';
 import { SearchMode } from './type';
 import { useSelectedNewsStore } from './useSelectedNewsStore';
 
 export function useSearchModel() {
   const [mode, setMode] = useState<SearchMode>('cluster');
+  const [query, setQuery] = useState('');
   const { clearNews } = useSelectedNewsStore();
 
   const {
@@ -43,6 +44,10 @@ export function useSearchModel() {
     ? { groups: [{ topic: '검색 결과', articles: searchData.items }] }
     : undefined;
 
+  const handleQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
+  };
+
   return {
     mode,
     toggleMode,
@@ -50,5 +55,7 @@ export function useSearchModel() {
     searchData: mode === 'cluster' ? clusterData : flatAsCluster,
     isSuccess: mode === 'cluster' ? !!clusterData : !!flatAsCluster,
     isLoading: isSearching || (mode === 'cluster' && isClustering),
+    query,
+    handleQuery,
   };
 }

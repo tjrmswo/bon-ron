@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import type { NewsItem, SearchMode } from './type';
-import { useExperimentLog } from '../api/useExperimentLog';
+import { logExperiment } from '../api/logExperiment';
 import { useSelectedNewsStore } from './useSelectedNewsStore';
 
 export function useArticleSelectState(
@@ -12,7 +12,7 @@ export function useArticleSelectState(
   const [pasteText, setPasteText] = useState('');
   const { addNews, clearNews } = useSelectedNewsStore();
 
-  const { log } = useExperimentLog();
+  const { log } = logExperiment();
 
   const toggleArticle = (article: NewsItem) => {
     const isDeselecting = selectedNews.some((a) => a.link === article.link);

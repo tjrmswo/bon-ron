@@ -1,25 +1,29 @@
 'use client';
 
-import { useState } from 'react';
-import {
-  ArticleList,
-  PasteSection,
-  RecentAnalysesList,
-  SearchBar,
-  ToggleButton,
-  useAnalyzeModel,
-  useArticleSelectState,
-  useSearchModel,
-  useSelectedNewsStore,
-} from '@/features/article-analyze';
 import { Loader, Toast } from '@/shared';
+import { useSelectedNewsStore } from '../model/useSelectedNewsStore';
+import { useAnalyzeModel } from '../model/useAnalyzeModel';
+import { useArticleSelectState } from '../model/useArticleSelectState';
+import { useSearchModel } from '../model/useSearchModel';
+import { ArticleList } from './ArticleList';
+import { PasteSection } from './PasteSection';
+import { RecentAnalysesList } from './RecentAnalysesList';
+import { SearchBar } from './SearchBar';
+import { ToggleButton } from './ToggleButton';
 
 export function ArticleAnalyzeSection() {
-  const [query, setQuery] = useState('');
   const { selectedNews } = useSelectedNewsStore();
 
-  const { mode, toggleMode, handleSearch, searchData, isSuccess, isLoading } =
-    useSearchModel();
+  const {
+    mode,
+    toggleMode,
+    handleSearch,
+    searchData,
+    isSuccess,
+    isLoading,
+    query,
+    handleQuery,
+  } = useSearchModel();
 
   const {
     pasteText,
@@ -39,7 +43,7 @@ export function ArticleAnalyzeSection() {
 
   return (
     <form onSubmit={(e) => handleSearch(e, query)} className="mb-6">
-      <SearchBar value={query} onChange={(e) => setQuery(e.target.value)} />
+      <SearchBar value={query} onChange={handleQuery} />
       {/* A/B 토글 — 검색 결과 있을 때만 표시 */}
       {isSuccess && !isLoading && (
         <ToggleButton mode={mode} toggleMode={toggleMode} />
