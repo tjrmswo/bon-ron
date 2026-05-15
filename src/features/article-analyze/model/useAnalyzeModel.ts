@@ -10,6 +10,9 @@ export function useAnalyzeModel(mode: SearchMode, query: string) {
   const { log } = logExperiment();
 
   const handleCompare = async (selected: NewsItem[], keyword: string) => {
+    console.log('keyword:', keyword); // ← 여기
+    console.log('query in closure:', query); // ← 여기
+    
     log({ mode, query, eventType: 'compare_start' });
 
     const articles = await Promise.all(
