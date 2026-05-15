@@ -18,6 +18,7 @@ export function buildAnalysisMetadata(
       title: `${keyword} — ${sources}`,
       description: `같은 사건, 다른 시각 | 본론`,
       url: `https://bon-ron.vercel.app/result/${id}`,
+      images: ['/og-image.png'],
       siteName: '본론',
       type: 'article',
     },
