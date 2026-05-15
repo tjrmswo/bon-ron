@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: '본론',
     description: '같은 사건, 다른 시각',
-    images: ['/og-image.png'],
+    images: ['./favicon.ico'],
   },
 };
 
