@@ -45,8 +45,6 @@
 
 ## 시스템 아키텍처
 
-### 데이터 플로우
-
 ```mermaid
 flowchart TD
     User([사용자]) --> Mode{입력 방식}
