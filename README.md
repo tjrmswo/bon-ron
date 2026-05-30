@@ -45,7 +45,30 @@
 
 ## 시스템 아키텍처
 
-[이미지 추가예정]
+### 데이터 플로우
+
+```mermaid
+flowchart TD
+    User([사용자]) --> Mode{입력 방식}
+
+    Mode -->|검색 모드| Search["/api/search<br/>네이버 뉴스 API"]
+    Mode -->|붙여넣기 모드| Paste[기사 본문 직접 입력]
+
+    Search --> SiteName["/api/site-name<br/>언론사명 파싱<br/>(SOURCE_MAP → og:site_name → 도메인)"]
+    SiteName --> Cluster["/api/cluster<br/>GPT-4o-mini 클러스터링"]
+    Cluster --> Select[사용자가 같은 사건 기사 2개 선택]
+
+    Select --> Analyze["/api/analyze<br/>GPT-4o-mini 분석<br/>WHO·WHAT·WHY·WHEN·WHERE·TONE"]
+    Paste --> Analyze
+
+    Analyze --> Zod[Zod preprocess<br/>LLM 비정형 응답 방어]
+    Zod --> Supabase[(Supabase<br/>분석 결과 영구 저장)]
+    Supabase --> Result["/result/[id]<br/>결과 페이지 · 카카오 공유"]
+    Result --> User
+
+    Cluster -.GPT 호출 실패 시.-> Fallback[단일 그룹 반환<br/>Route 레벨 폴백]
+    Fallback --> Select
+```
 
 ### FSD 레이어 구조
 
