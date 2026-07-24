@@ -2,7 +2,7 @@
 
 > **"같은 사건, 다른 시각 — 여러 매체의 보도를 30초 안에 구조화해서 나란히 본다"**
 
-**배포**: [bon-ron.vercel.app](https://bon-ron.vercel.app) | **GitHub**: [github.com/tjrmswo/bon-ron](https://github.com/tjrmswo/bon-ron) | **개발 기간**: 2026.04.23 ~ 진행 중 (1인 개발)
+**배포**: [bon-ron.vercel.app](https://bon-ron.vercel.app) | **GitHub**: [github.com/tjrmswo/bon-ron](https://github.com/tjrmswo/bon-ron) | **개발 기간**: 2026.04 ~ 2026.05  (1인 개발)
 
 ---
 
