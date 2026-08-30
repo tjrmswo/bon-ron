@@ -1,0 +1,15 @@
+name: Keep Supabase Alive
+
+on:
+  schedule:
+    - cron: '0 3 * * *' # 매일 UTC 3시 (KST 12시)
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping heartbeat endpoint
+        run: |
+          curl -sf -H "x-heartbeat-secret: ${{ secrets.HEARTBEAT_SECRET }}" \
+            https://bon-ron.vercel.app/api/heartbeat
